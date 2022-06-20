@@ -15,7 +15,9 @@ const EmployeeType = new GraphQLObjectType({
         id: {type:GraphQLID},
         name:{type:GraphQLString},
         email:{type:GraphQLString},
-        phone:{type:GraphQLString}
+        phone:{type:GraphQLString},
+        designation: {type:GraphQLString}
+
     })
 });
 
@@ -58,7 +60,7 @@ const RootQuery = new GraphQLObjectType({
              return Employee.find();
             }
         },
-        Employee:{
+        employee:{
             type: EmployeeType,
             args: {id:{type: GraphQLID}},
             resolve(parent,args){
@@ -85,12 +87,16 @@ const mutation = new GraphQLObjectType({
                 phone: {
                     type: GraphQLNonNull(GraphQLString)
                 },
+                designation:{
+                    type: GraphQLNonNull(GraphQLString)
+                }
             },
             resolve(parent,args) {
                 const employee = new Employee({
                     name: args.name,
                     email: args.email,
-                    phone: args.phone
+                    phone: args.phone,
+                    designation: args.designation
                 });
                 return employee.save();
             }

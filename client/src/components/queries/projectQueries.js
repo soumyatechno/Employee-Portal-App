@@ -22,6 +22,7 @@ const GET_PROJECTS = gql`
          name
          email
          phone
+         designation
      }
     }
  }

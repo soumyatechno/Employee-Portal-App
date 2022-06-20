@@ -1,5 +1,5 @@
 import React from 'react';
-import {FaEnvelope,FaIdBadge,FaPhone} from 'react-icons/fa';
+import {FaEnvelope,FaIdBadge,FaPhone,FaUserCircle} from 'react-icons/fa';
 
 export default function ClientInfo({employee}) {
   return (
@@ -14,6 +14,9 @@ export default function ClientInfo({employee}) {
         </li>
         <li className='list-group=item'>
             <FaPhone className='icon'/>{employee.phone}
+        </li>
+        <li className='list-group=item'>
+            <FaUserCircle className='icon'/>{employee.designation}
         </li>
     </ul>
     </>

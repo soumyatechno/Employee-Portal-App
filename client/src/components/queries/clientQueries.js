@@ -7,6 +7,7 @@ query getEmployees {
         name
         email
         phone
+        designation
     }
 }
 `;

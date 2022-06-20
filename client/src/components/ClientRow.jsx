@@ -20,6 +20,7 @@ export default function ClientRow({employee}) {
         <td>{employee.name}</td>
         <td>{employee.email}</td>
         <td>{employee.phone}</td>
+        <td>{employee.designation}</td>
         <td>
             <button className="btn btn-danger btn-sm"
                onClick={deleteEmployee}>

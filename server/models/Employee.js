@@ -10,6 +10,9 @@ const EmployeeSchema = new mongoose.Schema({
     phone:{
         type: String,
     },
+    designation: {
+        type: String
+    }
 
 });
 

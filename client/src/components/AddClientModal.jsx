@@ -14,9 +14,10 @@ export default function AddClientModal() {
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
   const [phone,setPhone] = useState('');
+  const [designation,setDesignation] = useState('');
 
   const [addEmployee] = useMutation(ADD_EMPLOYEE,{
-      variables:{name,email,phone},
+      variables:{name,email,phone,designation},
       update(cache, {data: {addEmployee}}){
           const {employees} = cache.readQuery({
               query:GET_EMPLOYEES
@@ -29,14 +30,14 @@ export default function AddClientModal() {
   });
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(name,email,phone);
-    if(name === '' || email === '' || phone === '') {
+    if(name === '' || email === '' || phone === '' || designation === '') {
         return alert ('please fill all the fields');
     }
-    addEmployee(name,email,phone);
+    addEmployee(name,email,phone,designation);
     setName('');
     setEmail('');
     setPhone('');
+    setDesignation('');
   }
 
   return (
@@ -65,6 +66,10 @@ export default function AddClientModal() {
                 <div className='mb-3'>
                     <label className='form-label'>Phone</label>
                     <input type="text" className="form-control" id="phone" value={phone}   onChange={(e)=>setPhone(e.target.value)}/>
+                </div>
+                <div className='mb-3'>
+                    <label className='form-label'>Designation</label>
+                    <input type="text" className="form-control" id="designation" value={designation}   onChange={(e)=>setDesignation(e.target.value)}/>
                 </div>
                 <button type="submit" className='btn btn-secondary' onClick={handleClose}>Submit</button>
             </form>
