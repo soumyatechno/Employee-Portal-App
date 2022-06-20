@@ -1,4 +1,6 @@
 # Employee-Portal-App
+Full Stack Application 
 UI- React,
 Server -Express,
-API - Graphql
+API - Graphql ,
+Database - MongoDB
