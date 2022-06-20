@@ -2,15 +2,15 @@ const {clients,projects} = require('../sampleData');
 
 // Mongoose models
 const Project = require('../models/Project');
-const Client = require('../models/Client');
+const Employee = require('../models/Employee');
 
 const {GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLList,GraphQLNonNull, GraphQLEnumType} = require('graphql');
 
 
 
-// Client Type
-const ClientType = new GraphQLObjectType({
-    name:'Client',
+// Employee Type
+const EmployeeType = new GraphQLObjectType({
+    name:'Employee',
     fields:() => ({
         id: {type:GraphQLID},
         name:{type:GraphQLString},
@@ -27,10 +27,10 @@ const ProjectType = new GraphQLObjectType({
         name:{type:GraphQLString},
         description:{type:GraphQLString},
         status:{type:GraphQLString},
-        client: {
-            type: ClientType,
+        employee: {
+            type: EmployeeType,
             resolve(parent,args) {
-                return Client.findById(parent.clientId);
+                return Employee.findById(parent.employeeId);
             },
         },
     }),
@@ -52,17 +52,17 @@ const RootQuery = new GraphQLObjectType({
                 return Project.findById(args.id);
             }
         },
-        clients:{
-            type: new GraphQLList(ClientType),
+        employees:{
+            type: new GraphQLList(EmployeeType),
             resolve(parent,args) {
-             return Client.find();
+             return Employee.find();
             }
         },
-        client:{
-            type: ClientType,
+        Employee:{
+            type: EmployeeType,
             args: {id:{type: GraphQLID}},
             resolve(parent,args){
-                return Client.findById(args.id);
+                return Employee.findById(args.id);
             }
         }
     }
@@ -72,9 +72,9 @@ const RootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        // Add Client
-        addClient: {
-            type: ClientType,
+        // Add Employee
+        addEmployee: {
+            type: EmployeeType,
             args: {
                 name: {
                     type: GraphQLNonNull(GraphQLString)
@@ -87,24 +87,24 @@ const mutation = new GraphQLObjectType({
                 },
             },
             resolve(parent,args) {
-                const client = new Client({
+                const employee = new Employee({
                     name: args.name,
                     email: args.email,
                     phone: args.phone
                 });
-                return client.save();
+                return employee.save();
             }
         },
-        // Delete Client
-        deleteClient: {
-            type: ClientType,
+        // Delete Employee
+        deleteEmployee: {
+            type: EmployeeType,
             args: {
                 id:{
                     type: GraphQLNonNull(GraphQLID)
                 },
             },
             resolve(parent,args){
-                return Client.findByIdAndRemove(args.id);
+                return Employee.findByIdAndRemove(args.id);
             },
         },
             // Add a Project
@@ -124,14 +124,14 @@ const mutation = new GraphQLObjectType({
                         }),
                         defaultValue: 'Not Started'
                     },
-                    clientId: { type: GraphQLNonNull(GraphQLID)},
+                    employeeId: { type: GraphQLNonNull(GraphQLID)},
                 },
                 resolve(parent,args){
                     const project = new Project ({
                         name: args.name,
                         description: args.description,
                         status: args.status,
-                        clientId: args.clientId
+                        employeeId: args.employeeId
                     });
                     return project.save();
 
