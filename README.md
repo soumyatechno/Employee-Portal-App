@@ -1,4 +1,4 @@
 # Employee-Portal-App
-UI- React
-Server -Express
+UI- React,
+Server -Express,
 API - Graphql
